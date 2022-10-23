@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         registerGoTo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View x) { openMain(); }
+            public void onClick(View x) { openReg(); }
         });
     }
 
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     //Send to RegisterActivity
     public void openReg(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }
