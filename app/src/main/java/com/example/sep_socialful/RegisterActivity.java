@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -26,7 +27,8 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     FirebaseAuth mAuth;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     private EditText userNicknameET;
     private EditText userPhoneNumberET;
@@ -60,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View view) {
                 createNewAccount();
-                //openLogin();
             }
         });
 
@@ -87,6 +88,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Toast.makeText(RegisterActivity.this, "Account Created successfully", Toast.LENGTH_SHORT).show();
+                        database = FirebaseDatabase.getInstance();
+                        myRef = database.getReference("Users");
+
+
+
+
+
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     }else{
                         Toast.makeText(RegisterActivity.this, "Registration Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
