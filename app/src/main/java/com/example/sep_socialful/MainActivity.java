@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new MapFragment());
+        replaceFragment(new GoogleMapFragment());
         binding.bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new ProfileFragment());
                     break;
                 case R.id.map:
-                    replaceFragment(new MapFragment());
+                    replaceFragment(new GoogleMapFragment());
                     break;
                 case R.id.community:
                     replaceFragment(new CommunityFragment());

@@ -16,13 +16,20 @@ public class StartUp extends AppCompatActivity {
         Runnable onRun = new Runnable() {
             @Override
             public void run() {
-                openLogin();
+                //openLogin();
+                openMain();
             }
         };
         Handler h = new Handler();
         h.postDelayed(onRun, 1600);
 
     }
+    //JASON CHANGES
+    public void openMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
     public void openLogin(){
         Intent intent = new Intent(this, LoginActivity.class);
