@@ -4,76 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/textView_loginH"
+        android:id="@+id/textView_RegisterH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Login"
+        android:text="Register"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/emailLogin"
-        android:inputType="textEmailAddress"
+        android:id="@+id/nickName"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
-        android:hint="Email"
+        android:hint="Nick Name"
         android:minHeight="48dp"
         android:padding="16dp"
         android:drawableStart="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_loginH"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RegisterH"
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/passwordLogin"
-        android:inputType="textPassword"
+        android:id="@+id/phoneNumber"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="40dp"
-        android:hint="Password"
+        android:hint="PhoneNumber"
         android:minHeight="48dp"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:drawableStart="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailLogin"
+        app:layout_constraintTop_toBottomOf="@+id/nickName"
         android:importantForAutofill="no" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
-        android:text="LOGIN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
-
-
-    <TextView
-        android:id="@+id/textViewRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:text="Don't have an account?"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
