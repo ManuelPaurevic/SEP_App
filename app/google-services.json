@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "706570244681",
+    "firebase_url": "https://se-socialful-default-rtdb.firebaseio.com",
+    "project_id": "se-socialful",
+    "storage_bucket": "se-socialful.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706570244681:android:cb3e40db000c4cda7fa598",
+        "android_client_info": {
+          "package_name": "com.example.sep_socialful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706570244681-fputtjlpk5fbkskqgnjdgbk5p9d1823q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZUFyrMtF6-K5HskSHF7-LMeKRlsCshlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706570244681-fputtjlpk5fbkskqgnjdgbk5p9d1823q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
