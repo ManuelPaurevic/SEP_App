@@ -24,7 +24,6 @@ public class StartUp extends AppCompatActivity {
 
     }
 
-    //Sends to MainActivity
     public void openLogin(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
