@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,12 +31,14 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     FirebaseDatabase database;
     DatabaseReference myRef;
 
+
     private EditText userNicknameET;
     private EditText userPhoneNumberET;
     private EditText userEmailET;
     private EditText userAgeET;
     private EditText userPasswordET;
     private EditText userCPasswordET;
+    private String gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +72,16 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void createNewAccount(){
+        //Grabs values from edit texts
+        String nickName = userNicknameET.getText().toString();
+        String phoneNumber = userPhoneNumberET.getText().toString();
         String email = userEmailET.getText().toString();
+        String ageS = userAgeET.getText().toString();
         String password = userPasswordET.getText().toString();
         String confirmPassword = userCPasswordET.getText().toString();
+
+        //Converts the variables we in int to ints
+        int age = Integer.parseInt(ageS);
 
         if (TextUtils.isEmpty(email)){
             userEmailET.setError("Email cannot be empty");
@@ -87,15 +97,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        Toast.makeText(RegisterActivity.this, "Account Created successfully", Toast.LENGTH_SHORT).show();
-                        database = FirebaseDatabase.getInstance();
-                        myRef = database.getReference("Users");
+                        //Toast.makeText(RegisterActivity.this, "Account Created successfully", Toast.LENGTH_SHORT).show();
+
+                        SendInfo(email, password, nickName, phoneNumber, age);
+                        FirebaseAuth.getInstance().signOut();
 
 
-
-
-
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        //startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     }else{
                         Toast.makeText(RegisterActivity.this, "Registration Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -107,9 +115,33 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
+    private void SendInfo(String email, String password, String nickName, String phoneNumber, int age){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
+                            String uid = user.getUid();
+
+                            database = FirebaseDatabase.getInstance();
+                            myRef = database.getReference("Users");
+
+                            UserAccount newUser = new UserAccount(nickName, email, gender, phoneNumber, age);
+                            myRef.child(uid).setValue(newUser);
+
+
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String genderSelected = adapterView.getItemAtPosition(i).toString();
+        gender = adapterView.getItemAtPosition(i).toString();
+
     }
 
     @Override

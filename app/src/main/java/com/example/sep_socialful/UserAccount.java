@@ -2,15 +2,16 @@ package com.example.sep_socialful;
 
 public class UserAccount {
 
-    String nickName, gender;
-    int phoneNumber, age;
+    String nickName, gender, phoneNumber, email;
+    int age;
 
     public UserAccount() {
 
     }
 
-    public UserAccount(String nickName, String gender, int phoneNumber, int age) {
+    public UserAccount(String nickName, String email, String gender, String phoneNumber, int age) {
         this.nickName = nickName;
+        this.email = email;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.age = age;
@@ -32,12 +33,20 @@ public class UserAccount {
         this.gender = gender;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAge() {
