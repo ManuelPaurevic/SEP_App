@@ -16,8 +16,8 @@ public class StartUp extends AppCompatActivity {
         Runnable onRun = new Runnable() {
             @Override
             public void run() {
-                //openLogin();
-                openMain();
+                openLogin();
+                //openMain();
             }
         };
         Handler h = new Handler();

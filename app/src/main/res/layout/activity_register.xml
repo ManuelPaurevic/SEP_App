@@ -19,20 +19,21 @@
 
     <EditText
         android:id="@+id/nickNameInput"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="40dp"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:hint="Nick Name"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:minHeight="48dp"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_RegisterH"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_RegisterH" />
 
     <TextView
         android:id="@+id/textView_nickName"
@@ -159,6 +160,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRInput" />
+
+    <Button
+        android:id="@+id/backRegButton"
+        android:layout_width="107dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:background="@android:color/transparent"
+        android:drawableEnd="@drawable/ic_baseline_play_arrow_24"
+        android:text="back"
+        android:textColor="@color/Gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonReg"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRInput" />
 
 

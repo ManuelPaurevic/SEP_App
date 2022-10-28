@@ -68,7 +68,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
-
+        Button backButton = (Button) findViewById(R.id.backRegButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     private void createNewAccount(){
