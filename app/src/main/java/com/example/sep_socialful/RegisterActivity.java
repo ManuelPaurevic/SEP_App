@@ -82,12 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String nickName = userNicknameET.getText().toString();
         String phoneNumber = userPhoneNumberET.getText().toString();
         String email = userEmailET.getText().toString();
-        String ageS = userAgeET.getText().toString();
+        String age = userAgeET.getText().toString();
         String password = userPasswordET.getText().toString();
         String confirmPassword = userCPasswordET.getText().toString();
-
-        //Converts the variables we in int to ints
-        int age = Integer.parseInt(ageS);
 
         if (TextUtils.isEmpty(email)){
             userEmailET.setError("Email cannot be empty");
@@ -120,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
-    private void SendInfo(String email, String password, String nickName, String phoneNumber, int age){
+    private void SendInfo(String email, String password, String nickName, String phoneNumber, String age){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -129,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
-                            String uid = user.getUid();
+                            String uid = user.getUid( );
 
                             database = FirebaseDatabase.getInstance();
                             myRef = database.getReference("Users");
