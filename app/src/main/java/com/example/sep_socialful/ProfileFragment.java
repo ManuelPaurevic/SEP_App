@@ -44,14 +44,12 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //InputUserData();
+        InputUserData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -82,7 +80,6 @@ public class ProfileFragment extends Fragment {
     private void InputUserData(){
 
         Log.v("firedata" , "dataRecived " + user.getUid());
-
 
         myRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
