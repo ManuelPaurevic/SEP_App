@@ -40,8 +40,6 @@ public class ProfileFragment extends Fragment {
     private TextView emailTV;
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
