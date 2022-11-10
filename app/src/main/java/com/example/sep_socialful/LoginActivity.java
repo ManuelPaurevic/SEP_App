@@ -56,10 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 } else{
                     LoginUser(userEmail, userPassword);
                 }
-
-
-
-
             }
         });
 
