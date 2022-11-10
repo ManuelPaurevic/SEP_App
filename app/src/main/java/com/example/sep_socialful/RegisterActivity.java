@@ -106,35 +106,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 }
             });
         }
-        /*
-        if (TextUtils.isEmpty(email)){
-            userEmailET.setError("Email cannot be empty");
-            userEmailET.requestFocus();
-        }else if (TextUtils.isEmpty(password)){
-            userPasswordET.setError("Password cannot be empty");
-            userPasswordET.requestFocus();
-        }else if (!password.equals(confirmPassword)){
-            userCPasswordET.setError("Passwords must match");
-            userCPasswordET.requestFocus();
-        }else{
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(RegisterActivity.this, "Account Created successfully", Toast.LENGTH_SHORT).show();
-
-                        SendInfo(email, password, nickName, phoneNumber, age);
-                        FirebaseAuth.getInstance().signOut();
-
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "Registration Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-         */
     }
 
     private void SendInfo(String email, String password, String nickName, String phoneNumber, int age){
