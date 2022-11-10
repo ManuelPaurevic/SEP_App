@@ -82,14 +82,28 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String nickName = userNicknameET.getText().toString();
         String phoneNumber = userPhoneNumberET.getText().toString();
         String email = userEmailET.getText().toString();
-        String ageS = userAgeET.getText().toString();
+        String age = userAgeET.getText().toString();
         String password = userPasswordET.getText().toString();
         String confirmPassword = userCPasswordET.getText().toString();
+<<<<<<< HEAD
         //Converts the variables we in int to ints
 
         boolean validCreds = validateCreds(nickName, phoneNumber, email, ageS, password, confirmPassword);
         if(validCreds){
             int age = Integer.parseInt(ageS);
+=======
+
+        if (TextUtils.isEmpty(email)){
+            userEmailET.setError("Email cannot be empty");
+            userEmailET.requestFocus();
+        }else if (TextUtils.isEmpty(password)){
+            userPasswordET.setError("Password cannot be empty");
+            userPasswordET.requestFocus();
+        }else if (!password.equals(confirmPassword)){
+            userCPasswordET.setError("Passwords must match");
+            userCPasswordET.requestFocus();
+        }else{
+>>>>>>> c06f9f84778ba77d46517aa48d6623379ed7aab7
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -108,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    private void SendInfo(String email, String password, String nickName, String phoneNumber, int age){
+    private void SendInfo(String email, String password, String nickName, String phoneNumber, String age){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -117,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
-                            String uid = user.getUid();
+                            String uid = user.getUid( );
 
                             database = FirebaseDatabase.getInstance();
                             myRef = database.getReference("Users");

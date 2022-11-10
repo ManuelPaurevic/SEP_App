@@ -5,31 +5,48 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.EditText;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StartUp extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_up);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         Runnable onRun = new Runnable() {
             @Override
             public void run() {
-                openLogin();
-                //openMain();
+                CheckUserStatus();
             }
         };
         Handler h = new Handler();
-        h.postDelayed(onRun, 1600);
+        h.postDelayed(onRun, 1500);
 
     }
+
+    private void CheckUserStatus(){
+        if(currentUser != null){
+            openMain();
+        }else{
+            openLogin();
+        }
+    }
+
     //JASON CHANGES
     public void openMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
     public void openLogin(){
         Intent intent = new Intent(this, LoginActivity.class);
