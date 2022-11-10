@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
-import java.util.regex.*;
+
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     FirebaseAuth mAuth;
@@ -85,13 +85,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String age = userAgeET.getText().toString();
         String password = userPasswordET.getText().toString();
         String confirmPassword = userCPasswordET.getText().toString();
-<<<<<<< HEAD
-        //Converts the variables we in int to ints
 
-        boolean validCreds = validateCreds(nickName, phoneNumber, email, ageS, password, confirmPassword);
-        if(validCreds){
-            int age = Integer.parseInt(ageS);
-=======
+        //boolean validCreds = validateCreds(nickName, phoneNumber, email, ageS, password, confirmPassword);
 
         if (TextUtils.isEmpty(email)){
             userEmailET.setError("Email cannot be empty");
@@ -103,7 +98,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             userCPasswordET.setError("Passwords must match");
             userCPasswordET.requestFocus();
         }else{
->>>>>>> c06f9f84778ba77d46517aa48d6623379ed7aab7
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -120,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 }
             });
         }
+
     }
 
     private void SendInfo(String email, String password, String nickName, String phoneNumber, String age){
@@ -145,51 +140,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 });
     }
 
-    public boolean validateCreds(String nickname, String phoneNumber, String email, String age, String pw, String cPw){
-        //Password condition       Digit,  lowercase, uppercase,  special char, nowhitespace, 8 char or more
-        String pwCondition = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-        Pattern pattern = Pattern.compile(pwCondition);
-        if(nickname.isEmpty()){
-            userNicknameET.setError("Enter nickname");
-            userNicknameET.requestFocus();
-            return false;
-        }else if(phoneNumber.isEmpty()){
-            userPhoneNumberET.setError("Enter phone number");
-            userPhoneNumberET.requestFocus();
-            return false;
-        }else if(age.isEmpty()){
-            userAgeET.setError("Enter age");
-            userAgeET.requestFocus();
-            return false;
-        }
-        else if(email.isEmpty()){
-            userEmailET.setError("Email cannot be empty");
-            userEmailET.requestFocus();
-            return false;
-        } else if(pw.isEmpty()){
-            userPasswordET.setError("Password cannot be empty");
-            userPasswordET.requestFocus();
-            return false;
-        } else if(!pw.equals(cPw)){
-            userCPasswordET.setError("Password must match");
-            userCPasswordET.requestFocus();
-            return false;
-        } else if(!pattern.matcher(pw).matches()) {
-            userPasswordET.setError("Password not strong enough");
-            userPasswordET.requestFocus();
-            return false;
-        } else{
-            for(int i = 0; i < pw.length(); i++){
-                if(pw.charAt(i) == '.'){
-                    userPasswordET.setError("Periods not allowed in passwords");
-                    userPasswordET.requestFocus();
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         gender = adapterView.getItemAtPosition(i).toString();
@@ -200,4 +150,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+
+
+
+
 }
