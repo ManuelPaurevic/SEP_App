@@ -2,43 +2,61 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="132dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/socialful_logos_black" />
 
     <TextView
         android:id="@+id/textView_loginH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="184dp"
         android:text="Login"
-        android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/emailLogin"
-        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="40dp"
+        android:background="@color/bABlack"
+        android:drawableStart="@drawable/ic_baseline_email_24"
         android:hint="Email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_loginH"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_loginH" />
 
     <EditText
         android:id="@+id/passwordLogin"
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bABlack"
         android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
@@ -54,7 +72,7 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="120dp"
-        android:layout_height="56dp"
+        android:layout_height="65dp"
         android:layout_marginTop="30dp"
         android:text="LOGIN"
         app:layout_constraintEnd_toEndOf="parent"

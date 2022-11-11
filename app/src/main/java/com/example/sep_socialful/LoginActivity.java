@@ -84,6 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
 
     //Sends to MainActivity
     public void openMain(){

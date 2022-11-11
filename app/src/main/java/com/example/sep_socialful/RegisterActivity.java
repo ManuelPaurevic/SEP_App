@@ -32,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     FirebaseDatabase database;
     DatabaseReference myRef;
 
-
     private EditText userNicknameET;
     private EditText userPhoneNumberET;
     private EditText userEmailET;
@@ -174,6 +173,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             return true;
         }
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
