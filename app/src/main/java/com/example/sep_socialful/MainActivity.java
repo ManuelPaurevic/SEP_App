@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new GoogleMapFragment());
         binding.bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
-
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             switch (item.getItemId()){
                 case R.id.profile:
