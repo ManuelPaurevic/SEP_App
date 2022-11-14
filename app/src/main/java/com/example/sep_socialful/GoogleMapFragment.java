@@ -75,7 +75,6 @@ public class GoogleMapFragment extends Fragment {
     }
 
 
-
     public LatLng getCoordsFromAddress(String address){
         LatLng coords = null;
         Address place;
