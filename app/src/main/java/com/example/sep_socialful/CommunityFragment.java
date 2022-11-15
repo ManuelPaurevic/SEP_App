@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 public class CommunityFragment extends Fragment {
@@ -38,7 +41,7 @@ public class CommunityFragment extends Fragment {
     RecyclerView communityRecycler;
     communityAdapter communityAdapter;
     ArrayList<community> communities;
-
+    String[] userCommunities;
     Context context;
 
     @Override
@@ -55,7 +58,6 @@ public class CommunityFragment extends Fragment {
 
         return inflater.inflate(R.layout.fragment_community, container, false);
     }
-
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -77,12 +79,14 @@ public class CommunityFragment extends Fragment {
         });
 
         communityRef.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     community community = dataSnapshot.getValue(community.class);
                     communities.add(community);
-
 
                 }
                 int tracker = 0;
@@ -109,12 +113,40 @@ public class CommunityFragment extends Fragment {
 
     public void addCommunityUser(int position){
         String uid = user.getUid();
-        String com = communities.get(position).getName();
-        UsersCommunity uic = new UsersCommunity(com);
         userRef = database.getReference("Users_In_Community").child(uid);
-        userRef.setValue(uic);
-        Toast.makeText(getActivity(), com, Toast.LENGTH_LONG).show();
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    userRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) { }
+                            else {
+                                UsersCommunity gottenValue = task.getResult().getValue(UsersCommunity.class);
+                                String com = communities.get(position).getName() + "," + gottenValue.getCommunities();
+                                UsersCommunity uic = new UsersCommunity(com);
+                                userRef.setValue(uic);
+                            }
+                        }
+                    });
+                } else {
+                    String com = communities.get(position).getName();
+                    UsersCommunity uic = new UsersCommunity(com);
+                    userRef.setValue(uic);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed, how to handle?
+
+            }
+
+        });
     }
+
 
 
 
