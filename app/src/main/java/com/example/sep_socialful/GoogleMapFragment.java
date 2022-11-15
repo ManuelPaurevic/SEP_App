@@ -2,8 +2,12 @@ package com.example.sep_socialful;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -53,6 +57,13 @@ public class GoogleMapFragment extends Fragment {
 
             googleMap.addMarker(new MarkerOptions().position(london).title("Marker in london"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(london));
+
+            if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                googleMap.setMyLocationEnabled(true);
+            } else{
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            }
+
         }
 
     };
@@ -110,4 +121,5 @@ public class GoogleMapFragment extends Fragment {
             mapFragment.getMapAsync(callback);
         }
     }
+
 }

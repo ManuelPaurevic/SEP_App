@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
-                            String uid = user.getUid( );
+                            String uid = user.getUid();
 
                             database = FirebaseDatabase.getInstance();
                             myRef = database.getReference("Users");
