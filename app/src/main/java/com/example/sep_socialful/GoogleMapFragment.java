@@ -10,6 +10,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +32,8 @@ import java.util.concurrent.ExecutionException;
 public class GoogleMapFragment extends Fragment {
 
     private Geocoder geocoder;
+    float zoomLevel = 16.0f; //This goes up to 21
+    GoogleMap map;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -46,6 +50,7 @@ public class GoogleMapFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             //LatLng london = getCoordsFromAddress("5314 staely ave");
+
             AsyncTask<String, Void, LatLng> task = new getCoordsFromAddressTwo().execute("8309 MacKenzie Rd");
             LatLng london = null;
 
@@ -56,10 +61,11 @@ public class GoogleMapFragment extends Fragment {
             }
 
             googleMap.addMarker(new MarkerOptions().position(london).title("Marker in london"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(london));
+
 
             if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 googleMap.setMyLocationEnabled(true);
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLng(ul));
             } else{
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
             }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -33,11 +37,14 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
+    //DatabaseReference comRef = database.getReference("Users_In_Community");
     FirebaseUser user = mAuth.getCurrentUser();
 
+    List<String> userCommunities = new ArrayList<>();
     private TextView nickNameTV;
     private TextView ageTV;
     private TextView emailTV;
+    private TextView commTV;
 
 
     @Override
@@ -63,6 +70,7 @@ public class ProfileFragment extends Fragment {
         nickNameTV = (TextView) requireView().findViewById(R.id.nicknameProfile);
         ageTV = (TextView) requireView().findViewById(R.id.ageProfile);
         emailTV = (TextView) requireView().findViewById(R.id.emailProfile);
+        commTV = (TextView) requireView().findViewById(R.id.communityJoinedText);
 
         Button signOutButton = (Button) requireView().findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -72,15 +80,9 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
-
-
     }
 
     private void InputUserData(){
-
-        Log.v("firedata" , "dataRecived " + user.getUid());
-
         myRef.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,7 +92,7 @@ public class ProfileFragment extends Fragment {
                 String age = userDataMap.get("age");
                 String email = userDataMap.get("email");
 
-                nickNameTV.setText(nickName);
+                nickNameTV.setText( " " + nickName);
                 ageTV.setText(age);
                 emailTV.setText(email);
             }
@@ -100,6 +102,72 @@ public class ProfileFragment extends Fragment {
                 Log.v("firedata" , "dataRecived " + "Failed");
             }
         });
+
+        DatabaseReference comRef = database.getReference("Users_In_Community").child(user.getUid());
+
+        //Checks if data is already there
+        comRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                    //Takes data from firebase and adds it to a list
+                    comRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                comRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        UsersCommunity communities = snapshot.getValue(UsersCommunity.class);
+                                        //Toast.makeText(getActivity(), communities.getCommunities(), Toast.LENGTH_LONG).show();
+                                        userCommunities = Arrays.asList(communities.getCommunities().split(","));
+
+                                        String comText = "";
+                                        for (int i =0; i < userCommunities.size(); i++){
+                                            if(i == 0){
+                                                comText = "Communitys: " + userCommunities.get(i);
+                                            } else {
+                                                comText = comText + ", " + userCommunities.get(i);
+                                            }
+                                        }
+                                        commTV.setText(comText);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            } else {
+
+                            }
+                        }
+                    });
+
+                } else {
+                   commTV.setText("No Community Yet!");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     private void SignOut() {

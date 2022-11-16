@@ -39,7 +39,6 @@ public class StartUp extends AppCompatActivity {
         };
         Handler h = new Handler();
         h.postDelayed(onRun, 1500);
-
     }
 
     private void CheckUserStatus(){
