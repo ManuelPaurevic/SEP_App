@@ -74,7 +74,7 @@ public class GoogleMapFragment extends Fragment {
         }
 
     };
-    /*
+
     private class getCoordsFromAddress extends AsyncTask<String,Void,LatLng>{
         protected LatLng doInBackground(String... strings) {
             String address = strings[0];
@@ -92,7 +92,7 @@ public class GoogleMapFragment extends Fragment {
         }
     }
 
-     */
+
 
     private void readMarkData(GoogleMap mMap){
         reference = FirebaseDatabase.getInstance().getReference().child("Communities").child("AllEvents");
@@ -104,8 +104,16 @@ public class GoogleMapFragment extends Fragment {
                     temp.add(ss.getValue(Event.class));
                 }
                 for(int i = 0; i < temp.size(); i++){
-                    LatLng cords = getCoordsFromAddress(temp.get(i).getEvent_Address());
-                    mMap.addMarker(new MarkerOptions().position(cords).title(temp.get(i).getEvent_Name()).snippet("Date: " + temp.get(0).getEvent_Date() + ", Time: " + temp.get(i).getEvent_Time()));
+                    //LatLng cords = getCoordsFromAddress(temp.get(i).getEvent_Address());
+                    AsyncTask<String, Void, LatLng> cords  = new getCoordsFromAddress().execute(temp.get(i).getEvent_Address());
+
+                    try {
+                        mMap.addMarker(new MarkerOptions().position(cords.get()).title(temp.get(i).getEvent_Name()).snippet("Date: " + temp.get(0).getEvent_Date() + ", Time: " + temp.get(i).getEvent_Time()));
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
@@ -115,6 +123,7 @@ public class GoogleMapFragment extends Fragment {
         });
     }
 
+    /*
     public LatLng getCoordsFromAddress(String address){
         LatLng coords = null;
         Address place;
@@ -128,6 +137,8 @@ public class GoogleMapFragment extends Fragment {
         }
         return coords;
     }
+
+     */
 
 
     @Nullable
