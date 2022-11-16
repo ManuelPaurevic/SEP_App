@@ -24,23 +24,37 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class GoogleMapFragment extends Fragment {
 
     private Geocoder geocoder;
-    float zoomLevel = 12.0f; //This goes up to 21
+    float zoomLevel = 12.0f;
+    DatabaseReference reference;
     GoogleMap map;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            //LatLng london = getCoordsFromAddress("5314 staely ave");
+            map = googleMap;
+            if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                googleMap.setMyLocationEnabled(true);
+            } else{
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            }
 
+            /*
             AsyncTask<String, Void, LatLng> task = new getCoordsFromAddress().execute("8309 MacKenzie Rd");
             LatLng london = null;
 
@@ -53,16 +67,14 @@ public class GoogleMapFragment extends Fragment {
             googleMap.addMarker(new MarkerOptions().position(london).title("Marker in london"));
 
 
-            if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                googleMap.setMyLocationEnabled(true);
-            } else{
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-            }
+             */
 
+
+            readMarkData(map);
         }
 
     };
-
+    /*
     private class getCoordsFromAddress extends AsyncTask<String,Void,LatLng>{
         protected LatLng doInBackground(String... strings) {
             String address = strings[0];
@@ -80,13 +92,29 @@ public class GoogleMapFragment extends Fragment {
         }
     }
 
+     */
 
+    private void readMarkData(GoogleMap mMap){
+        reference = FirebaseDatabase.getInstance().getReference().child("Communities").child("AllEvents");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Event> temp = new ArrayList<>();
+                for(DataSnapshot ss : snapshot.getChildren()){
+                    temp.add(ss.getValue(Event.class));
+                }
+                for(int i = 0; i < temp.size(); i++){
+                    LatLng cords = getCoordsFromAddress(temp.get(i).getEvent_Address());
+                    mMap.addMarker(new MarkerOptions().position(cords).title(temp.get(i).getEvent_Name()).snippet("Date: " + temp.get(0).getEvent_Date() + ", Time: " + temp.get(i).getEvent_Time()));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
 
-
-
-
-    /*
     public LatLng getCoordsFromAddress(String address){
         LatLng coords = null;
         Address place;
@@ -100,7 +128,6 @@ public class GoogleMapFragment extends Fragment {
         }
         return coords;
     }
-     */
 
 
     @Nullable
