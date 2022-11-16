@@ -32,26 +32,16 @@ import java.util.concurrent.ExecutionException;
 public class GoogleMapFragment extends Fragment {
 
     private Geocoder geocoder;
-    float zoomLevel = 16.0f; //This goes up to 21
+    float zoomLevel = 12.0f; //This goes up to 21
     GoogleMap map;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
             //LatLng london = getCoordsFromAddress("5314 staely ave");
 
-            AsyncTask<String, Void, LatLng> task = new getCoordsFromAddressTwo().execute("8309 MacKenzie Rd");
+            AsyncTask<String, Void, LatLng> task = new getCoordsFromAddress().execute("8309 MacKenzie Rd");
             LatLng london = null;
 
             try {
@@ -65,7 +55,6 @@ public class GoogleMapFragment extends Fragment {
 
             if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 googleMap.setMyLocationEnabled(true);
-                //googleMap.moveCamera(CameraUpdateFactory.newLatLng(ul));
             } else{
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
             }
@@ -74,7 +63,7 @@ public class GoogleMapFragment extends Fragment {
 
     };
 
-    private class getCoordsFromAddressTwo extends AsyncTask<String,Void,LatLng>{
+    private class getCoordsFromAddress extends AsyncTask<String,Void,LatLng>{
         protected LatLng doInBackground(String... strings) {
             String address = strings[0];
             LatLng coords = null;
@@ -92,6 +81,12 @@ public class GoogleMapFragment extends Fragment {
     }
 
 
+
+
+
+
+
+    /*
     public LatLng getCoordsFromAddress(String address){
         LatLng coords = null;
         Address place;
@@ -105,9 +100,7 @@ public class GoogleMapFragment extends Fragment {
         }
         return coords;
     }
-
-
-
+     */
 
 
     @Nullable

@@ -92,15 +92,13 @@ public class CommunityFragment extends Fragment {
                     userRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) { }
-                            else {
+                            if (task.isSuccessful()) {
                                 UsersCommunity gottenValue = task.getResult().getValue(UsersCommunity.class);
                                 String com = communities.get(position).getName();
                                 String col = com + "," + gottenValue.getCommunities();
                                 UsersCommunity uic = new UsersCommunity(col);
                                 userRef.setValue(uic);
                                 removeCommunity(position);
-                                //Toast.makeText(getActivity(), com, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -109,14 +107,11 @@ public class CommunityFragment extends Fragment {
                     UsersCommunity uic = new UsersCommunity(com);
                     userRef.setValue(uic);
                     removeCommunity(position);
-                    //Toast.makeText(getActivity(), com, Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed, how to handle?
-
             }
 
         });
@@ -130,8 +125,6 @@ public class CommunityFragment extends Fragment {
         communities = new ArrayList<>();
         communityAdapter = new communityAdapter(context, communities);
         communityRecycler.setAdapter(communityAdapter);
-
-
 
         communityAdapter.setOnItemClickListener(new communityAdapter.OnItemClickListener() {
             @Override
@@ -196,12 +189,9 @@ public class CommunityFragment extends Fragment {
                                    public void onCancelled(@NonNull DatabaseError error) {
                                    }
                                });
-                           } else {
-
                            }
                        }
                    });
-
 
                } else {
                    userCommunities.add("N/A");
@@ -215,10 +205,4 @@ public class CommunityFragment extends Fragment {
        });
 
    }
-
-
-
-
-
-
 }

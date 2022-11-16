@@ -37,7 +37,6 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
-    //DatabaseReference comRef = database.getReference("Users_In_Community");
     FirebaseUser user = mAuth.getCurrentUser();
 
     List<String> userCommunities = new ArrayList<>();
@@ -45,7 +44,6 @@ public class ProfileFragment extends Fragment {
     private TextView ageTV;
     private TextView emailTV;
     private TextView commTV;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +56,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
@@ -77,7 +74,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 SignOut();
-
             }
         });
     }
@@ -110,7 +106,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-
                     //Takes data from firebase and adds it to a list
                     comRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
@@ -120,7 +115,6 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         UsersCommunity communities = snapshot.getValue(UsersCommunity.class);
-                                        //Toast.makeText(getActivity(), communities.getCommunities(), Toast.LENGTH_LONG).show();
                                         userCommunities = Arrays.asList(communities.getCommunities().split(","));
 
                                         String comText = "";
@@ -139,14 +133,12 @@ public class ProfileFragment extends Fragment {
                                     public void onCancelled(@NonNull DatabaseError error) {
                                     }
                                 });
-                            } else {
-
                             }
                         }
                     });
 
                 } else {
-                   commTV.setText("No Community Yet!");
+                   commTV.setText("Not in a Community Yet!");
                 }
             }
 
@@ -155,19 +147,6 @@ public class ProfileFragment extends Fragment {
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     private void SignOut() {

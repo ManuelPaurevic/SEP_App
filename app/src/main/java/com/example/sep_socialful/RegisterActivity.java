@@ -87,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String confirmPassword = userCPasswordET.getText().toString();
 
         boolean validCreds = validateCreds(nickName, phoneNumber, email, age, password, confirmPassword);
+
         if(validCreds){
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -122,7 +123,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
                             UserAccount newUser = new UserAccount(nickName, email, gender, phoneNumber, age);
                             myRef.child(uid).setValue(newUser);
-
 
                         }
                     }

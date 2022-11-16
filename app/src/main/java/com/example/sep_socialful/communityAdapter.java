@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class communityAdapter extends RecyclerView.Adapter<communityAdapter.ViewHolder> {
 
-
     Context context;
     ArrayList<community> list;
     private OnItemClickListener cListener;
@@ -36,7 +35,6 @@ public class communityAdapter extends RecyclerView.Adapter<communityAdapter.View
     public void setOnItemClickListener(OnItemClickListener listener) {
         cListener = listener;
     }
-
 
     @NonNull
     @Override
@@ -86,7 +84,4 @@ public class communityAdapter extends RecyclerView.Adapter<communityAdapter.View
         }
 
     }
-
-
-
 }
